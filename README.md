@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 =======
->>>>>>> c164d6d11b3dab119daf1a63ef6c6f52093f6f8f
 # software_testing_server
 基于机器学习分类算法的软件缺陷分析与预测系统，使用了Vue、Springboot以及MySQL开发，此处只有后端
 
@@ -11,7 +8,6 @@
 开发时主要使用GitLab进行协作开发
 
 项目功能：账户及用户信息管理功能、各算法训练、各算法预测（logistic、decision tree、kmeans、感知机、朴素贝叶斯）
-<<<<<<< HEAD
 =======
 # 实训后端
 
