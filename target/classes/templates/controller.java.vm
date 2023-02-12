@@ -1,0 +1,85 @@
+package ${package.Controller};
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.web.bind.annotation.*;
+import javax.annotation.Resource;
+import java.util.List;
+
+import $!{package.Service}.$!{table.serviceName};
+import $!{package.Entity}.$!{table.entityName};
+
+#if(${restControllerStyle})
+import org.springframework.web.bind.annotation.RestController;
+#else
+import org.springframework.stereotype.Controller;
+#end
+#if(${superControllerClassPackage})
+import ${superControllerClassPackage};
+#end
+
+/**
+ * <p>
+ * $!{table.comment} 前端控制器
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${restControllerStyle})
+@RestController
+#else
+@Controller
+#end
+@ResponseBody
+@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityName}#end")
+#if(${kotlin})
+class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
+
+#else
+#if(${superControllerClass})
+public class ${table.controllerName} extends ${superControllerClass} {
+#else
+public class ${table.controllerName} {
+#end
+
+    @Resource
+    private ${table.serviceName} i${table.entityName}Service;
+
+    @GetMapping
+    public List<${table.entityName}> findAll() {
+        return i${table.entityName}Service.list();
+    }
+
+    @GetMapping("/{id}")
+    public ${table.entityName} findOne(@PathVariable Integer id) {
+        return i${table.entityName}Service.getById(id);
+    }
+
+    @PostMapping
+    public boolean save(@RequestBody ${table.entityName} ${table.entityPath}) {
+        return i${table.entityName}Service.save(${table.entityPath});
+    }
+
+    @PutMapping
+    public boolean update(@RequestBody ${table.entityName} ${table.entityPath}) {
+        return i${table.entityName}Service.updateById(${table.entityPath});
+    }
+
+    @DeleteMapping("/{id}")
+    public boolean delete(@PathVariable Integer id) {
+        return i${table.entityName}Service.removeById(id);
+    }
+
+    @PostMapping("del/batch")
+    public boolean deleteBatchIds(@RequestBody List<Integer> ids) {
+        return i${table.entityName}Service.removeByIds(ids);
+    }
+
+    @GetMapping("/page")
+    public Page<${table.entityName}> findPage(@RequestParam Integer pageNo, @RequestParam Integer pageSize) {
+        QueryWrapper<${table.entityName}> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("id");
+        return i${table.entityName}Service.page(new Page<>(pageNo, pageSize), queryWrapper);
+    }
+}
+#end
