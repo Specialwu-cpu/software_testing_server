@@ -1,0 +1,2 @@
+# software_testing_server
+基于机器学习分类算法的软件缺陷分析与预测系统，使用了Vue、Springboot以及MySQL开发，此处只有后端
